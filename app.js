@@ -1,6 +1,7 @@
 const express = require('express')
 const produtoRouter = require('./router/produto_router')
 const usuarioRouter = require('./router/usuario_router')
+const metaRouter = require('./router/meta_router')
 const loginController = require('./controller/login_controller')
 const authMiddleware = require('./middleware/auth_middleware')
 
@@ -12,7 +13,7 @@ app.use(express.urlencoded({ extended: true}));
 
 
 app.use(function (req, res, next) {
-  console.log(req.method+" - "+req.originalUrl);
+  console.log(req.method + " - " + req.originalUrl);
   next();
 });
 
@@ -30,6 +31,8 @@ app.use('/api/produtos', produtoRouter)
 
 app.use('/api/usuarios', usuarioRouter)
 
+app.use('/api/metas', metaRouter)
+
 app.listen(PORT, () => {
-  console.log(`Servidor executando na porta ${PORT}`)
+  console.log(`Servidor executando na porta: ${PORT}`)
 })

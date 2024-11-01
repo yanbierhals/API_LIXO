@@ -15,7 +15,6 @@ function listar(req, res) {
             res.status(err.id).json(err)
         }
     }
-
 }
 
 //Inserir
@@ -33,7 +32,7 @@ function inserir(req, res) {
 //Buscar por id
 function buscarPorId(req, res) {
     // O + antes converte o valor para number (na URL vem como string)
-    const id = +req.params.id;
+    const id = + req.params.id;
     try {
       res.json(usuarioService.buscarPorId(id));
     } catch(err) {
