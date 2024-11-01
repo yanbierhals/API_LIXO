@@ -19,11 +19,11 @@ function buscarPorId(req, res){
 //Inserir
 function inserir(req, res){
 	const meta = req.body
-  	try{
+  	try {
     	const metaInserida = metaService.inserir(meta)
       	res.status(201).json(metaInserida)
     }
-    catch(err){
+    catch(err) {
       	res.status(err.id).json(err)
     }
 }

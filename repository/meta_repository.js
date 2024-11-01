@@ -1,57 +1,58 @@
-let listaMetas = [    {
-    "nome": "novembro",
-    "descricao": "descartar o lixo quatro vezes em novembro",
-    "meta": 4,
-    "id": 1
-}];
-let idGerador = 1;
-
-function listar() {
-    return listaMetas;
-}
-
-function inserir(meta) {
-    //Se não tiver algum dado obrigatório, não faz nada e retorna undefined
-    if(!meta || !meta.nome || !meta.categoria || !meta.preco) {
-        return;
+let listaMetas = [
+    {
+        "id": 1,
+        "nome": "seco",
+        "descricao": "descartar o lixo seco 2 vezes por semana",
+        "objetivo": 2
     }
-    meta.id = idGerador++;
-    listaMetas.push(meta);
-    return meta;
+]
+
+let idGerador = 1
+
+function listar(){
+    return listaMetas
 }
 
-function buscarPorId(id) {
+function buscarPorId(id){
     return (listaMetas.find(
-        function(meta) {
-            return (meta.id == id);        
+        function(meta){
+            return (meta.id == id) 
         }
     ));
 }
 
+function inserir(meta){
+    // Se não tiver algum dado obrigatório, não faz nada e retorna undefined
+    if(!meta || !meta.nome || !meta.descricao || !meta.objetivo){
+        return
+    }
+    meta.id = ++idGerador
+    listaMetas.push(meta)
+    return meta
+}
+
 function atualizar(id, meta) {
     //Se não tiver algum dado obrigatório, não faz nada e retorna undefined
-    if(!meta || !meta.nome || !meta.categoria || !meta.preco) {
-        return;
+    if(!meta || !meta.nome || !meta.descricao || !meta.objetivo){
+        return
     }
-    let indiceMeta = listaMetas.findIndex(function(meta) {
-        return (meta.id == id);
+    let indiceMeta = listaMetas.findIndex(function(meta){
+        return (meta.id == id)
     })
 
-    if (indiceMeta == -1) return;
+    if (indiceMeta == -1) return
     //alterar a meta direto
-    meta.id = id;
-    listaMetas[indiceMeta] = meta;
-    return meta;
+    meta.id = id
+    listaMetas[indiceMeta] = meta
+    return meta
 }
 
 function deletar(id) {
     let indiceMeta = listaMetas.findIndex(function(meta) {
-        return (meta.id == id);
+        return (meta.id == id)
     })
-    if(indiceMeta == -1) return;
-    return (listaMetas.splice(indiceMeta, 1))[0];
+    return indiceMeta == -1 ? undefined : listaMetas.splice(indiceMeta, 1)[0]
 }
-
 
 module.exports = {
     listar,
