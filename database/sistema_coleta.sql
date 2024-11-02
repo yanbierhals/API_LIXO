@@ -64,6 +64,14 @@ CREATE TABLE IF NOT EXISTS pontuacao (
  ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS metas (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao VARCHAR(255),
+    objetivo INT NOT NULL
+);
+
+
 CREATE INDEX idx_lixeiras_tipo_lixo_id ON lixeiras(tipo_lixo_id);
 CREATE INDEX idx_usuarios_nome ON usuarios(nome);
 CREATE INDEX idx_usuarios_bonus_usuario_id ON usuarios_bonus(usuario_id);
@@ -71,3 +79,57 @@ CREATE INDEX idx_usuarios_bonus_bonus_id ON usuarios_bonus(bonus_id);
 CREATE INDEX idx_coletas_lixeira_id ON coletas(lixeira_id);
 CREATE INDEX idx_coletas_usuario_id ON coletas(usuario_id);
 CREATE INDEX idx_pontuacao_usuario_id ON pontuacao(usuario_id);
+CREATE INDEX idx_metas_nome ON metas(nome);
+
+
+
+-- INSERTS PARA EXEMPLO
+
+BEGIN;
+
+INSERT INTO tipos_lixo (tipo) VALUES
+('Orgânico'),
+('Reciclável'),
+('Perigoso'),
+('Eletrônico'),
+('Construção');
+
+INSERT INTO lixeiras (tipo_lixo_id, localizacao) VALUES
+(1, 'Praça Central'),
+(2, 'Rua A, nº 10'),
+(3, 'Escola Municipal'),
+(4, 'Parque da Cidade'),
+(5, 'Avenida Principal, nº 100');
+
+INSERT INTO usuarios (nome, cpf, email, senha, perfil) VALUES
+('João Silva', '123.456.789-00', 'joao.silva@email.com', 'senha123', 'cidadão'),
+('Maria Oliveira', '987.654.321-00', 'maria.oliveira@email.com', 'senha456', 'admin'),
+('Carlos Santos', '111.222.333-44', 'carlos.santos@email.com', 'senha789', 'moderador');
+
+INSERT INTO bonus (descricao) VALUES
+('Participação em eventos'),
+('Reciclagem de materiais'),
+('Atividades comunitárias');
+
+INSERT INTO usuarios_bonus (usuario_id, bonus_id) VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(3, 3);
+
+INSERT INTO coletas (lixeira_id, usuario_id, data_coleta) VALUES
+(1, 1, CURRENT_TIMESTAMP),
+(2, 2, CURRENT_TIMESTAMP),
+(3, 3, CURRENT_TIMESTAMP);
+
+INSERT INTO pontuacao (usuario_id, pontos) VALUES
+(1, 10),
+(2, 20),
+(3, 15);
+
+INSERT INTO metas (nome, descricao, objetivo) VALUES
+('Reciclagem de Materiais', 'Meta para reciclar 100kg de materiais até o final do ano.', 100),
+('Participação em Eventos', 'Participar de pelo menos 5 eventos comunitários.', 5),
+('Redução do Consumo de Plástico', 'Reduzir o uso de plástico em 50%', 50);
+
+-- COMMIT;
