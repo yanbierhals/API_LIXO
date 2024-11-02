@@ -1,13 +1,3 @@
-// let listaMetas = [
-//     {
-//         "id": 1,
-//         "nome": "seco",
-//         "descricao": "descartar o lixo seco 2 vezes por semana",
-//         "objetivo": 2
-//     }
-// ]
-
-// let idGerador = 1
 
 const knex = require('../database/db')
 
