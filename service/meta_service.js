@@ -1,47 +1,46 @@
+
 const metaRepository = require('../repository/meta_repository')
 
-function listar(){
-    return metaRepository.listar()
+async function listar() {
+    const metas = await metaRepository.listar()
+    return metas
 }
 
-function buscarPorId(id){
-    let meta = metaRepository.buscarPorId(id)
-    if(meta){
+async function buscarPorId(id) {
+    let meta = await metaRepository.buscarPorId(id)
+    if (meta) {
         return meta
     } else {
         throw { id: 404, msg: "Meta não encontrada!" }
     }
 }
 
-function inserir(meta){
-    if(meta && meta.nome && meta.descricao && meta.objetivo){
-        return metaRepository.inserir(meta)
+async function inserir(meta) {
+    if (meta && meta.nome && meta.descricao && meta.objetivo) {
+        return await metaRepository.inserir(meta)
     } else {
-        throw { id: 400, msg: "Não foi possível inserir a meta."}
+        throw { id: 400, msg: "Não foi possível inserir a meta." }
     }
 }
 
-function atualizar(id, meta){
-    if(meta && meta.nome && meta.descricao && meta.objetivo){
-        const metaAtualizada = metaRepository.atualizar(id, meta)
-        if(metaAtualizada){
+async function atualizar(id, meta) {
+    if (meta && meta.nome && meta.descricao && meta.objetivo) {
+        const metaAtualizada = await metaRepository.atualizar(id, meta)
+        if (metaAtualizada && metaAtualizada.length > 0) {
             return metaAtualizada
-        }        
-        else {
-            throw {id:404, msg: "Meta não encontrada."}
+        } else {
+            throw { id:404, msg: "Meta não encontrada." }
         }
-    }
-    else {
-        throw {id:400, msg: "Dados incorretos."}
+    } else {
+        throw { id:400, msg: "Dados incorretos." }
     }
 }
 
-function deletar(id){
-    let meta = metaRepository.deletar(id)
-    if(meta) {
+async function deletar(id) {
+    let meta = await metaRepository.deletar(id)
+    if (meta && meta.length > 0) {
         return meta
-    }
-    else {
+    } else {
         throw { id: 404, msg: "Meta não encontrada!" }
     }
 }
