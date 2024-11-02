@@ -1,4 +1,5 @@
 const express = require('express')
+const pontoDeColetaRouter = require('./router/pontoDeColeta_router');
 const produtoRouter = require('./router/produto_router')
 const usuarioRouter = require('./router/usuario_router')
 const loginController = require('./controller/login_controller')
@@ -25,6 +26,8 @@ app.get('/', (req, res) => {
 app.post('/api/login', loginController.realizarLogin)
 
 app.use(authMiddleware.verificarAcesso)
+
+app.use('/api/pontodecoleta', pontoDeColetaRouter);
 
 app.use('/api/produtos', produtoRouter)
 
