@@ -71,6 +71,17 @@ CREATE TABLE IF NOT EXISTS metas (
     objetivo INT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS pontos_coleta (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    endereco VARCHAR(255) NOT NULL,
+    bairro VARCHAR(100) NOT NULL,
+    tipo_lixo_id INT NOT NULL,
+    FOREIGN KEY (tipo_lixo_id) REFERENCES tipos_lixo(id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+);
+
 
 CREATE INDEX idx_lixeiras_tipo_lixo_id ON lixeiras(tipo_lixo_id);
 CREATE INDEX idx_usuarios_nome ON usuarios(nome);
@@ -80,6 +91,9 @@ CREATE INDEX idx_coletas_lixeira_id ON coletas(lixeira_id);
 CREATE INDEX idx_coletas_usuario_id ON coletas(usuario_id);
 CREATE INDEX idx_pontuacao_usuario_id ON pontuacao(usuario_id);
 CREATE INDEX idx_metas_nome ON metas(nome);
+CREATE INDEX idx_pontos_coleta_nome ON pontos_coleta(nome);
+CREATE INDEX idx_pontos_coleta_bairro ON pontos_coleta(bairro);
+CREATE INDEX idx_pontos_coleta_tipo_lixo_id ON pontos_coleta(tipo_lixo_id);
 
 
 
@@ -131,5 +145,12 @@ INSERT INTO metas (nome, descricao, objetivo) VALUES
 ('Reciclagem de Materiais', 'Meta para reciclar 100kg de materiais até o final do ano.', 100),
 ('Participação em Eventos', 'Participar de pelo menos 5 eventos comunitários.', 5),
 ('Redução do Consumo de Plástico', 'Reduzir o uso de plástico em 50%', 50);
+
+INSERT INTO pontos_coleta (nome, endereco, bairro, tipo_lixo_id) VALUES
+    ('Ponto Central', 'Rua Principal, 123', 'Centro', 1),
+    ('Estação de Reciclagem Sul', 'Av. Reciclagem, 456', 'Sul', 2),
+    ('Coleta Perigosa Norte', 'Rua das Indústrias, 789', 'Norte', 3),
+    ('Tecnologia Verde', 'Av. Digital, 1011', 'Tecnologia', 4),
+    ('Coleta de Entulho Leste', 'Rua Construção, 2020', 'Leste', 5);
 
 -- COMMIT;
