@@ -16,7 +16,7 @@ async function buscarPorId(req, res) {
   	// O + antes converte o valor para number (na URL vem como string)
   	const id = + req.params.id
   	try {
-		let meta = await metaService.buscarPorId(id)
+		const meta = await metaService.buscarPorId(id)
     	res.json(meta)
   	} catch(err) {
     	res.status(err.id).json(err)

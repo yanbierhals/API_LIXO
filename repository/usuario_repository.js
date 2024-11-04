@@ -6,10 +6,10 @@ let listaUsuarios = [
         "id": 1
     }
 ];
-let idGerador = 2;
+let idGerador = 2
 
 function listar() {
-    return listaUsuarios.map(usuario => removerCampoSenha(usuario));
+    return listaUsuarios.map(usuario => removerCampoSenha(usuario))
 }
 
 function inserir(usuario) {
@@ -55,8 +55,8 @@ function removerCampoSenha(usuario) {
 
 module.exports = {
     listar,
-    inserir,
+    buscarPorId,
     buscarPorEmail,
-    buscarPorId
+    inserir
 }
  
