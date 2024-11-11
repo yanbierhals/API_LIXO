@@ -1,4 +1,4 @@
-const pontoColetaService = require('../service/pontoColeta_service');
+const pontoColetaService = require('../service/pontoColeta_service')
 
 async function buscar(req, res) {		   // Busca pontos de coleta baseados no filtro da consulta (Query Params)
     try {

@@ -6,7 +6,7 @@ const loginController = require('./controller/login_controller')
 const authMiddleware = require('./middleware/auth_middleware')
 
 const app = express()
-const PORT = 3000
+const PORT = 3333
 
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))

@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const pontoColetaController = require('../controller/pontoColeta_controller');
+const express = require('express')
+const router = express.Router()
+const pontoColetaController = require('../controller/pontoColeta_controller')
 
 router.get('/', pontoColetaController.buscar)       // Busca pontos de coleta baseados no filtro da consulta (Query Params)
 
@@ -28,4 +28,4 @@ router.put('/atualizar/:id', pontoColetaController.atualizar)
 // Deletar ponto de coleta pelo ID
 router.delete('/deletar/:id', pontoColetaController.deletar)
 
-module.exports = router;
+module.exports = router
