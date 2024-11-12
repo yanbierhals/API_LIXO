@@ -119,18 +119,16 @@
 
 // -----------------------------------------------------------------------------------------------
 
-const { createClient } = require('@supabase/supabase-js');
-
-// Configuração do Supabase
-const supabase = createClient('https://qsrgmjucivjqtwuoyjfr.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzcmdtanVjaXZqcXR3dW95amZyIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMDgzNTQxOSwiZXhwIjoyMDQ2NDExNDE5fQ.zIu1JoJ-HoqTwHqCtpqJzSyMQNIAGNoV_WvVfMgiZmM');
+import supabase from "../database/db";
 
 async function buscar(query) {
     try {
         let pontosColeta = supabase
             .from('pontos_coleta')
-            .select('pontos_coleta.*, tipos_lixo.tipo as tipo_lixo')
-            .join('tipos_lixo', 'pontos_coleta.tipo_lixo_id', 'tipos_lixo.id');
-        
+            .select('pontos_coleta.*, tipos_lixo.tipo as tipo_lixo') // Seleciona colunas de pontos_coleta e tipos_lixo
+            .innerJoin('tipos_lixo', 'pontos_coleta.tipo_lixo_id', 'tipos_lixo.id'); // Usa innerJoin para juntar as tabelas
+            
+        // Aplica os filtros baseados nos parâmetros da query
         if (query.id) {
             pontosColeta = pontosColeta.eq('pontos_coleta.id', query.id);
         }
@@ -144,6 +142,7 @@ async function buscar(query) {
             pontosColeta = pontosColeta.ilike('tipos_lixo.tipo', `%${query.tipo_lixo}%`);
         }
         
+        // Executa a consulta
         const { data, error } = await pontosColeta;
         if (error) throw error;
         
@@ -157,14 +156,16 @@ async function inserir(pontoColeta) {
     try {
         const { data, error } = await supabase
             .from('pontos_coleta')
-            .insert([pontoColeta])
-            .single();
+            .insert(pontoColeta)
+            .select('*') // Retorna os dados inseridos
         
-        if (error) throw error;
+        if (error) {
+            throw error
+        }
         
-        return data;
+        return data
     } catch (err) {
-        throw err;
+        throw { id: 500, msg: "Erro ao inserir ponto de coleta." }
     }
 }
 
@@ -173,14 +174,16 @@ async function atualizar(id, pontoColeta) {
         const { data, error } = await supabase
             .from('pontos_coleta')
             .update(pontoColeta)
-            .eq('id', id)
-            .single();
+            .match({ id }) // Filtra pelo ID para atualizar o ponto de coleta específico
+            .select('*') // Retorna os dados atualizados
         
-        if (error) throw error;
+        if (error) {
+            throw error
+        }
         
-        return data;
+        return data
     } catch (err) {
-        throw err;
+        throw { id: 500, msg: "Erro ao atualizar ponto de coleta." }
     }
 }
 
@@ -189,16 +192,19 @@ async function deletar(id) {
         const { data, error } = await supabase
             .from('pontos_coleta')
             .delete()
-            .eq('id', id)
-            .single();
+            .match({ id }) // Filtra pelo ID para deletar o ponto de coleta específico
+            .select('*') // Retorna os dados deletados
         
-        if (error) throw error;
+        if (error) {
+            throw error
+        }
         
-        return data;
+        return data
     } catch (err) {
-        throw err;
+        throw { id: 500, msg: "Erro ao deletar ponto de coleta." }
     }
 }
+
 
 module.exports = {
     buscar,
