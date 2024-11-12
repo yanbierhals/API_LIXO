@@ -119,7 +119,7 @@
 
 // -----------------------------------------------------------------------------------------------
 
-import supabase from "../database/db";
+const supabase = require("../database/db")
 
 async function buscar(query) {
     try {

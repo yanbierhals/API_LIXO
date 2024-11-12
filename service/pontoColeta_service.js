@@ -164,7 +164,7 @@ async function buscar(query) {
 
 
 
-import supabase from "../database/db"
+const supabase = require("../database/db")
 
 async function inserir(pontoColeta) {
     if (!pontoColeta || !pontoColeta.nome || !pontoColeta.endereco || !pontoColeta.bairro || !pontoColeta.tipo_lixo_id) {
