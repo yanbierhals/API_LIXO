@@ -64,7 +64,7 @@
 //     deletar
 // }
 
-const supabase = require("../database/db")
+const { supabase } = require("../database/db")
 
 async function listar() {
     try {
