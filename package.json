@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "engine":{
-    "node":"20.18.0"
+  "engine": {
+    "node": "20.18.0"
   },
   "scripts": {
-    "dev":"node --watch app.js",
+    "dev": "node --watch app.js",
     "start": "node --watch app.js"
   },
   "keywords": [],

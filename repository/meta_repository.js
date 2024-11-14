@@ -1,9 +1,77 @@
 
-const knex = require('../database/db')
+// const knex = require('../database/db')
+
+// async function listar() {
+//     try {
+//         const metas = await knex("metas")
+//         return metas
+//     } catch (err) {
+//         throw err
+//     }
+// }
+
+// async function buscarPorId(id) {
+//     try {
+//         const meta = await knex("metas")
+//             .where("id", id)
+//             .first()
+//         return meta
+//     } catch (err) {
+//         throw err
+//     }
+// }
+
+// async function inserir(meta) {
+//     try {
+//         const novaMeta = await knex("metas")
+//             .insert(meta)
+//             .returning("*")
+//         return novaMeta
+//     } catch (err) {
+//         throw err
+//     }
+// }
+
+// async function atualizar(id, meta) {
+//     try {
+//         const metaAtualizada = await knex("metas")
+//             .where("id", id)
+//             .update(meta)
+//             .returning("*")
+//         return metaAtualizada
+//     } catch (err) {
+//         throw err
+//     }
+// }
+
+// async function deletar(id) {
+//     try {
+//         const meta = await knex("metas")
+//             .where("id", id)
+//             .delete()
+//             .returning("*")
+//         return meta
+//     } catch {
+//         throw err
+//     }
+// }
+
+// module.exports = {
+//     listar,
+//     inserir,
+//     buscarPorId,
+//     atualizar,
+//     deletar
+// }
+
+const supabase = require("../database/db")
 
 async function listar() {
     try {
-        const metas = await knex("metas")
+        const { data: metas, error } = await supabase
+            .from("metas")
+            .select("*")
+        if (error) throw error
         return metas
     } catch (err) {
         throw err
@@ -12,9 +80,12 @@ async function listar() {
 
 async function buscarPorId(id) {
     try {
-        const meta = await knex("metas")
-            .where("id", id)
-            .first()
+        const { data: meta, error } = await supabase
+            .from("metas")
+            .select("*")
+            .eq("id", id)
+            .single()
+        if (error) throw error
         return meta
     } catch (err) {
         throw err
@@ -23,9 +94,11 @@ async function buscarPorId(id) {
 
 async function inserir(meta) {
     try {
-        const novaMeta = await knex("metas")
+        const { data: novaMeta, error } = await supabase
+            .from("metas")
             .insert(meta)
-            .returning("*")
+            .select("*")
+        if (error) throw error
         return novaMeta
     } catch (err) {
         throw err
@@ -34,10 +107,12 @@ async function inserir(meta) {
 
 async function atualizar(id, meta) {
     try {
-        const metaAtualizada = await knex("metas")
-            .where("id", id)
+        const { data: metaAtualizada, error } = await supabase
+            .from("metas")
             .update(meta)
-            .returning("*")
+            .eq("id", id)
+            .select("*")
+        if (error) throw error
         return metaAtualizada
     } catch (err) {
         throw err
@@ -46,12 +121,14 @@ async function atualizar(id, meta) {
 
 async function deletar(id) {
     try {
-        const meta = await knex("metas")
-            .where("id", id)
+        const { data: meta, error } = await supabase
+            .from("metas")
             .delete()
-            .returning("*")
+            .eq("id", id)
+            .select("*")
+        if (error) throw error
         return meta
-    } catch {
+    } catch (err) {
         throw err
     }
 }
