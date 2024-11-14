@@ -74,6 +74,7 @@ async function listar() {
         if (error) throw error
         return metas
     } catch (err) {
+        console.error("Erro ao buscar dados:", err)
         throw err
     }
 }
