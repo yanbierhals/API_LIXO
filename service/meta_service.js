@@ -17,6 +17,7 @@ async function buscarPorId(id) {
         }
         return meta
     } catch (err) {
+        if (err.id === 404) throw err
         throw { id: 500, msg: "Erro ao buscar meta." }
     }
 }
@@ -28,6 +29,7 @@ async function inserir(meta) {
     try {
         return await metaRepository.inserir(meta)
     } catch (err) {
+        if (err.id === 404) throw err
         throw { id: 500, msg: "Erro ao inserir a meta." }
     }
 }
@@ -44,6 +46,7 @@ async function atualizar(id, meta) {
             throw { id: 404, msg: "Meta não encontrada." }
         }
     } catch (err) {
+        if (err.id === 404) throw err
         throw { id: 500, msg: "Erro ao atualizar a meta." }
     }
 }
@@ -57,6 +60,7 @@ async function deletar(id) {
             throw { id: 404, msg: "Meta não encontrada!" }
         }
     } catch (err) {
+        if (err.id === 404) throw err
         throw { id: 500, msg: "Erro ao deletar a meta." }
     }
 }
