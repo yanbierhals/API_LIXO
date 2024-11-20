@@ -3,7 +3,7 @@ const pontoColetaService = require('../service/pontoColeta_service')
 async function buscar(req, res) {		   // Busca pontos de coleta baseados no filtro da consulta (Query Params)
     try {
         const query = req.query
-        const pontosColeta = await pontoColetaService.buscar(query)
+        const pontosColeta = await pontoColetaService.buscar(query)	
         res.json(pontosColeta)
     } catch (err) {
         res.status(err.id).json(err)
