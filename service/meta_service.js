@@ -23,7 +23,7 @@ async function buscarPorId(id) {
 }
 
 async function inserir(meta) {
-    if (!meta || !meta.nome || !meta.descricao || !meta.objetivo) {
+    if (!meta || !meta.nome || !meta.descricao || !meta.objetivo || !meta.valor_bonus) {
         throw { id: 400, msg: "Dados obrigatórios faltando." }
     }
     try {
@@ -35,7 +35,7 @@ async function inserir(meta) {
 }
 
 async function atualizar(id, meta) {
-    if (!meta || !meta.nome || !meta.descricao || !meta.objetivo) {
+    if (!meta || !meta.nome || !meta.descricao || !meta.objetivo || !meta.valor_bonus) {
         throw { id: 400, msg: "Dados obrigatórios faltando." }
     }
     try {
