@@ -22,5 +22,7 @@
     "node": "^22.11.0",
     "pg": "^8.13.1",
     "supabase": "^1.219.2"
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }
