@@ -18,13 +18,13 @@ async function buscarPorId(id) {
             .from("metas")
             .select("*")
             .eq("id", id)
-            .single()
+            .maybeSingle()
         if (error) throw error
         return meta
     } catch (err) {
         throw err
     }
-}
+}   
 
 async function inserir(meta) {
     try {
@@ -69,8 +69,8 @@ async function deletar(id) {
 
 module.exports = {
     listar,
-    inserir,
     buscarPorId,
+    inserir,
     atualizar,
     deletar
 }

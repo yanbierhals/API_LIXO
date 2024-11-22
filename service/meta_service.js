@@ -12,9 +12,7 @@ async function listar() {
 async function buscarPorId(id) {
     try {
         const meta = await metaRepository.buscarPorId(id)
-        if (!meta) {
-            throw { id: 404, msg: "Meta não encontrada!" }
-        }
+        if (!meta) throw { id: 404, msg: "Meta não encontrada!" }
         return meta
     } catch (err) {
         if (err.id === 404) throw err
