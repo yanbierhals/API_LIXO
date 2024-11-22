@@ -1,16 +1,16 @@
 const usuarioService = require('../service/usuario_service')
 
 //Listar Usuarios
-function listar(req, res) {
+async function listar(req, res) {
     let email = req.query.email;
     //Se não tiver email no query, é listar
     if(!email) {
-        res.json(usuarioService.listar())
+        res.json(await usuarioService.listar())
     }
     //Se tiver email no query, é buscarPorEmail
     else {
         try {
-            res.json(usuarioService.buscarPorEmail(email));
+            res.json(await usuarioService.buscarPorEmail(email));
         } catch(err) {
             res.status(err.id).json(err)
         }
@@ -18,10 +18,10 @@ function listar(req, res) {
 }
 
 //Inserir
-function inserir(req, res) {
+async function inserir(req, res) {
     const usuario = req.body;
     try{
-      const usuarioInserido = usuarioService.inserir(usuario);
+      const usuarioInserido = await usuarioService.inserir(usuario);
       res.status(201).json(usuarioInserido)
     }
     catch(err){
@@ -30,11 +30,11 @@ function inserir(req, res) {
 }
 
 //Buscar por id
-function buscarPorId(req, res) {
+async function buscarPorId(req, res) {
     // O + antes converte o valor para number (na URL vem como string)
     const id = + req.params.id;
     try {
-      res.json(usuarioService.buscarPorId(id));
+      res.json(await usuarioService.buscarPorId(id));
     } catch(err) {
       res.status(err.id).json(err)
     }

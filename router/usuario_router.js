@@ -53,6 +53,8 @@ router.get('/:id', usuarioController.buscarPorId);
  *           schema:
  *             type: object
  *             properties:
+ *               cpf:
+ *                 type: string
  *               nome:
  *                 type: string
  *               email:

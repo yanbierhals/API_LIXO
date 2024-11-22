@@ -1,8 +1,7 @@
 const loginService = require("../service/login_service")
 
-function verificarAcesso(req, res, next) {
+async function verificarAcesso(req, res, next) {
     try {
-        console.log(1)
         // Recupera o cabeçalho Authorization
         const authHeader = req.get("Authorization");
 
@@ -13,9 +12,9 @@ function verificarAcesso(req, res, next) {
 
         // Extrai o token do cabeçalho
         const token = authHeader.split(" ")[1];  // Pega o valor após "Bearer"
-        console.log(token)
+        console.log("token", token)
         // Chama o método para validar o token (verificando sua validade)
-        loginService.validarToken(token);
+        await loginService.validarToken(token);
 
         // Se o token for válido, continua a execução para a próxima rota
         next();

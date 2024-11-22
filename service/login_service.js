@@ -2,13 +2,18 @@ const usuarioRepository = require('../repository/usuario_repository')
 const jwt = require('jsonwebtoken')
 const PALAVRA_CHAVE = "Sen@c2024"
 
-function verificarLogin(usuarioLogin) {
+async function verificarLogin(usuarioLogin) {
     if (!usuarioLogin || !usuarioLogin.email || !usuarioLogin.senha) {
         throw { id: 401, msg: "Usuario ou senha inválidos." }
     }
 
     try {
-        let usuario = usuarioRepository.buscarPorEmail(usuarioLogin.email)
+        let usuario = await usuarioRepository.buscarPorEmail(usuarioLogin.email)
+
+        if(!usuario){
+            throw { id: 401, msg: "Email não cadastrado" }
+        }
+
         if (usuario) {
             if (usuario.senha == usuarioLogin.senha) {
                 let token = jwt.sign(
@@ -17,14 +22,15 @@ function verificarLogin(usuarioLogin) {
                     { expiresIn: '2h' }
                 )
                 return token
-            }        
+            }
+            else {throw { id: 401, msg: "Senha Incorreta" }}
         }
     } catch (err) {
-        throw { id: 401, msg: "Usuario ou senha inválidos" }
+        throw { id: 401, msg: err }
     }
 }
 
-function validarToken(token) {
+async function validarToken(token) {
     try {
         const payload = jwt.verify(token, PALAVRA_CHAVE)
         console.log("Payload", payload)

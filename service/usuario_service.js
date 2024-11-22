@@ -1,21 +1,21 @@
 const usuarioRepository = require('../repository/usuario_repository')
 
-function listar() {
-    return usuarioRepository.listar();
+async function listar() {
+    return await usuarioRepository.listar();
 }
 
-function inserir(usuario) {
+async function inserir(usuario) {
     if(usuario && usuario.nome 
         && usuario.email && usuario.senha){
-            return usuarioRepository.inserir(usuario);
+            return await usuarioRepository.inserir(usuario);
     }
     else {
         throw { id: 400, msg: "Usuario sem dados corretos"}
     }
 }
 
-function buscarPorEmail(email) {
-    let usuario = usuarioRepository.buscarPorEmail(email);
+async function buscarPorEmail(email) {
+    let usuario = await usuarioRepository.buscarPorEmail(email);
     if(usuario) {
         return usuario;
     }
@@ -24,8 +24,8 @@ function buscarPorEmail(email) {
     }
 }
 
-function buscarPorId(id) {
-    let usuario = usuarioRepository.buscarPorId(id);
+async function buscarPorId(id) {
+    let usuario = await usuarioRepository.buscarPorId(id);
     if(usuario) {
         return usuario;
     }
