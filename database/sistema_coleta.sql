@@ -86,6 +86,18 @@ CREATE TABLE IF NOT EXISTS pontos_coleta (
         ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS leituras (
+	id SERIAL PRIMARY KEY,
+	id_usuario INT NOT NULL,
+	id_lixeira INT NOT NULL,
+	data_leitura TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	FOREIGN KEY (id_lixeira) REFERENCES lixeiras(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+);
 
 CREATE INDEX idx_lixeiras_tipo_lixo_id ON lixeiras(tipo_lixo_id);
 CREATE INDEX idx_usuarios_nome ON usuarios(nome);
@@ -99,7 +111,9 @@ CREATE INDEX idx_metas_bonus_id ON metas(bonus_id);
 CREATE INDEX idx_pontos_coleta_nome ON pontos_coleta(nome);
 CREATE INDEX idx_pontos_coleta_bairro ON pontos_coleta(bairro);
 CREATE INDEX idx_pontos_coleta_tipo_lixo_id ON pontos_coleta(tipo_lixo_id)
-
+CREATE INDEX idx_leituras_usuario_id ON leituras(id_usuario);
+CREATE INDEX idx_leituras_lixeira_id ON leituras(id_lixeira);
+CREATE INDEX idx_leituras_data_leitura ON leituras(data_leitura);
 
 CREATE OR REPLACE FUNCTION limitar_coletas()
 RETURNS TRIGGER AS $$
@@ -151,10 +165,10 @@ INSERT INTO usuarios (nome, cpf, email, senha, perfil) VALUES
 	('Maria Oliveira', '987.654.321-00', 'maria.oliveira@email.com', 'senha456', 'admin'),
 	('Carlos Santos', '111.222.333-44', 'carlos.santos@email.com', 'senha789', 'moderador');
 
-INSERT INTO bonus (descricao) VALUES
-	('Participação em eventos'),
-	('Reciclagem de materiais'),
-	('Atividades comunitárias');
+INSERT INTO bonus (descricao, valor_bonus) VALUES
+	('Participação em eventos', 50.00),
+	('Reciclagem de materiais', 30.00),
+    ('Atividades comunitárias', 20.00);
 
 INSERT INTO usuarios_bonus (usuario_id, bonus_id) VALUES
 	(1, 1),
@@ -172,10 +186,10 @@ INSERT INTO pontuacao (usuario_id, pontos) VALUES
 	(2, 20),
 	(3, 15);
 
-INSERT INTO metas (nome, descricao, objetivo) VALUES
+INSERT INTO metas (nome, descricao, objetivo, bonus_id) VALUES
 	('Reciclagem de Materiais', 'Meta para reciclar 100kg de materiais até o final do ano.', 100, 2),
 	('Participação em Eventos', 'Participar de pelo menos 5 eventos comunitários.', 5, 1),
-	('Redução do Consumo de Plástico', 'Reduzir o uso de plástico em 50%', 50, NULL); -- Meta sem bônus associado
+	('Redução do Consumo de Plástico', 'Reduzir o uso de plástico em 50%', 50, NULL);
 
 INSERT INTO pontos_coleta (nome, endereco, bairro, tipo_lixo_id) VALUES
     ('Ponto Central', 'Rua Principal, 123', 'Centro', 1),
@@ -183,5 +197,13 @@ INSERT INTO pontos_coleta (nome, endereco, bairro, tipo_lixo_id) VALUES
     ('Coleta Perigosa Norte', 'Rua das Indústrias, 789', 'Norte', 3),
     ('Tecnologia Verde', 'Av. Digital, 1011', 'Tecnologia', 4),
     ('Coleta de Entulho Leste', 'Rua Construção, 2020', 'Leste', 5);
+
+INSERT INTO leituras (id_usuario, id_lixeira, data_leitura) VALUES
+    (1, 1, CURRENT_TIMESTAMP - INTERVAL '1 day'),
+    (2, 2, CURRENT_TIMESTAMP - INTERVAL '2 days'),
+    (3, 3, CURRENT_TIMESTAMP - INTERVAL '3 days'),
+    (1, 2, CURRENT_TIMESTAMP - INTERVAL '1 hour'),
+    (2, 3, CURRENT_TIMESTAMP - INTERVAL '2 hours'),
+    (3, 1, CURRENT_TIMESTAMP - INTERVAL '30 minutes');
 
 -- COMMIT;
