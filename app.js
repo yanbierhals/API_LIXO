@@ -1,9 +1,11 @@
+
 const express = require('express');
 const pontoColetaRouter = require('./router/pontoColeta_router');
 const dicaRouter = require('./router/dica_router');
 const usuarioRouter = require('./router/usuario_router');
 const metaRouter = require('./router/meta_router');
 const loginController = require('./controller/login_controller');
+const leiturasRouter = require('./router/leituras_router')
 const authMiddleware = require('./middleware/auth_middleware');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
@@ -61,6 +63,8 @@ app.use('/api/pontos_coleta', pontoColetaRouter);
 app.use('/api/dicas', dicaRouter);
 app.use('/api/usuarios', usuarioRouter);
 app.use('/api/metas', metaRouter);
+
+app.use('/api/leituras', leiturasRouter)
 
 app.listen(PORT, () => {
   console.log(`Servidor executando na porta: ${PORT}`);

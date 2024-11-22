@@ -1,12 +1,12 @@
-const { supabase } = require("../database/db")
+const { supabase } = require('../database/db')
 
 async function listar() {
     try {
-        const { data: metas, error } = await supabase
-            .from("metas")
+        const { data: leituras, error } = await supabase
+            .from("leituras")
             .select("*")
         if (error) throw error
-        return metas
+        return leituras
     } catch (err) {
         throw err
     }
@@ -14,40 +14,40 @@ async function listar() {
 
 async function buscarPorId(id) {
     try {
-        const { data: meta, error } = await supabase
-            .from("metas")
+        const { data: leitura, error } = await supabase
+            .from("leituras")
             .select("*")
             .eq("id", id)
             .maybeSingle()
         if (error) throw error
-        return meta
-    } catch (err) {
-        throw err
-    }
-}   
-
-async function inserir(meta) {
-    try {
-        const { data: novaMeta, error } = await supabase
-            .from("metas")
-            .insert(meta)
-            .select("*")
-        if (error) throw error
-        return novaMeta
+        return leitura
     } catch (err) {
         throw err
     }
 }
 
-async function atualizar(id, meta) {
+async function inserir(leitura) {
     try {
-        const { data: metaAtualizada, error } = await supabase
-            .from("metas")
-            .update(meta)
+        const { data: novaLeitura, error } = await supabase
+            .from("leituras")
+            .insert(leitura)
+            .select("*")
+        if (error) throw error
+        return novaLeitura
+    } catch (err) {
+        throw err
+    }
+}
+
+async function atualizar(id, leitura) {
+    try {
+        const { data: leituraAtualizada, error } = await supabase
+            .from("leituras")
+            .update(leitura)
             .eq("id", id)
             .select("*")
         if (error) throw error
-        return metaAtualizada
+        return leituraAtualizada
     } catch (err) {
         throw err
     }
@@ -55,13 +55,13 @@ async function atualizar(id, meta) {
 
 async function deletar(id) {
     try {
-        const { data: meta, error } = await supabase
-            .from("metas")
+        const {data: leituraDeletada, error } = await supabase
+            .from("leituras")
             .delete()
             .eq("id", id)
             .select("*")
         if (error) throw error
-        return meta
+        return leituraDeletada
     } catch (err) {
         throw err
     }
@@ -72,5 +72,5 @@ module.exports = {
     buscarPorId,
     inserir,
     atualizar,
-    deletar
+    deletar,
 }

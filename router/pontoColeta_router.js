@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const pontoColetaController = require('../controller/pontoColeta_controller');
+const express = require('express')
+const router = express.Router()
+const pontoColetaController = require('../controller/pontoColeta_controller')
 
 /**
  * @swagger
@@ -8,6 +8,7 @@ const pontoColetaController = require('../controller/pontoColeta_controller');
  *   name: Pontos de Coleta
  *   description: Gerenciamento de pontos de coleta
  */
+
 
 /**
  * @swagger
