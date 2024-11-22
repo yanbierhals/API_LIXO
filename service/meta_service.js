@@ -1,4 +1,3 @@
-
 const metaRepository = require('../repository/meta_repository')
 
 async function listar() {
@@ -13,28 +12,28 @@ async function listar() {
 async function buscarPorId(id) {
     try {
         const meta = await metaRepository.buscarPorId(id)
-        if (!meta) {
-            throw { id: 404, msg: "Meta não encontrada!" }
-        }
+        if (!meta) throw { id: 404, msg: "Meta não encontrada!" }
         return meta
     } catch (err) {
+        if (err.id === 404) throw err
         throw { id: 500, msg: "Erro ao buscar meta." }
     }
 }
 
 async function inserir(meta) {
-    if (!meta || !meta.nome || !meta.descricao || !meta.objetivo) {
+    if (!meta || !meta.nome || !meta.descricao || !meta.objetivo || !meta.valor_bonus) {
         throw { id: 400, msg: "Dados obrigatórios faltando." }
     }
     try {
         return await metaRepository.inserir(meta)
     } catch (err) {
+        if (err.id === 404) throw err
         throw { id: 500, msg: "Erro ao inserir a meta." }
     }
 }
 
 async function atualizar(id, meta) {
-    if (!meta || !meta.nome || !meta.descricao || !meta.objetivo) {
+    if (!meta || !meta.nome || !meta.descricao || !meta.objetivo || !meta.valor_bonus) {
         throw { id: 400, msg: "Dados obrigatórios faltando." }
     }
     try {
@@ -45,6 +44,7 @@ async function atualizar(id, meta) {
             throw { id: 404, msg: "Meta não encontrada." }
         }
     } catch (err) {
+        if (err.id === 404) throw err
         throw { id: 500, msg: "Erro ao atualizar a meta." }
     }
 }
@@ -58,6 +58,7 @@ async function deletar(id) {
             throw { id: 404, msg: "Meta não encontrada!" }
         }
     } catch (err) {
+        if (err.id === 404) throw err
         throw { id: 500, msg: "Erro ao deletar a meta." }
     }
 }
