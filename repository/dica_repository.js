@@ -1,11 +1,56 @@
 let listaDicas = [
     {
-        "nome": "Dica 1",
-        "descricao": "Teste",
+        "nome": "Separação de Lixo Orgânico",
+        "descricao": "Separe restos de alimentos e materiais biodegradáveis para compostagem ou descarte correto.",
         "id": 1
+    },
+    {
+        "nome": "Reciclagem de Papel",
+        "descricao": "Papeis limpos podem ser reciclados. Evite amassar ou misturar com materiais sujos.",
+        "id": 2
+    },
+    {
+        "nome": "Descarte de Plásticos",
+        "descricao": "Lave e seque recipientes plásticos antes de descartá-los para reciclagem.",
+        "id": 3
+    },
+    {
+        "nome": "Descarte de Vidros",
+        "descricao": "Embale vidros quebrados em jornal ou caixa antes de descartar para evitar acidentes.",
+        "id": 4
+    },
+    {
+        "nome": "Separação de Metais",
+        "descricao": "Latinhas e outros metais devem ser limpos antes do descarte para reciclagem.",
+        "id": 5
+    },
+    {
+        "nome": "Eletrônicos",
+        "descricao": "Leve aparelhos eletrônicos e baterias usadas para pontos de coleta especializados.",
+        "id": 6
+    },
+    {
+        "nome": "Óleo de Cozinha",
+        "descricao": "Nunca descarte óleo de cozinha na pia. Armazene em garrafas PET e leve para reciclagem.",
+        "id": 7
+    },
+    {
+        "nome": "Remédios Vencidos",
+        "descricao": "Não descarte medicamentos no lixo comum ou no vaso sanitário. Procure farmácias com coleta de remédios vencidos.",
+        "id": 8
+    },
+    {
+        "nome": "Roupas e Tecidos",
+        "descricao": "Doe roupas em bom estado ou leve tecidos para cooperativas de reciclagem.",
+        "id": 9
+    },
+    {
+        "nome": "Compostagem Doméstica",
+        "descricao": "Transforme restos de frutas, vegetais e cascas de ovos em adubo para plantas.",
+        "id": 10
     }
-
 ];
+
 let idGerador = 1;
 
 function listar() {

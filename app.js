@@ -60,12 +60,12 @@ app.post('/api/login', loginController.realizarLogin);
 app.use(authMiddleware.verificarAcesso);
 
 // Rotas da API
-app.use('/api/pontos_coleta', pontoColetaRouter);
+app.use('/api/pontos-coleta', pontoColetaRouter);
 app.use('/api/dicas', dicaRouter);
 app.use('/api/usuarios', usuarioRouter);
 app.use('/api/metas', metaRouter);
-
 app.use('/api/leituras', leiturasRouter)
+
 
 app.listen(PORT, () => {
   console.log(`Servidor executando na porta: ${PORT}`);

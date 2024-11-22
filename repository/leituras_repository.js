@@ -17,8 +17,7 @@ async function buscarPorId(id) {
         const { data: leitura, error } = await supabase
             .from("leituras")
             .select("*")
-            .eq("id", id)
-            .maybeSingle()
+            .eq("id_usuario", id)
         if (error) throw error
         return leitura
     } catch (err) {
