@@ -11,7 +11,7 @@ const dicaController = require('../controller/dica_controller');
 
 /**
  * @swagger
- * /dicas:
+ * /api/dicas:
  *   get:
  *     summary: Lista todas as dicas
  *     tags: [Dicas]
@@ -23,7 +23,7 @@ router.get('/', dicaController.listar);
 
 /**
  * @swagger
- * /dicas:
+ * /api/dicas:
  *   post:
  *     summary: Insere uma nova dica
  *     tags: [Dicas]
@@ -37,7 +37,7 @@ router.post('/', dicaController.inserir);
 
 /**
  * @swagger
- * /dicas/{id}:
+ * /api/dicas/{id}:
  *   get:
  *     summary: Busca uma dica pelo ID
  *     tags: [Dicas]
@@ -56,7 +56,7 @@ router.get('/:id', dicaController.buscarPorId);
 
 /**
  * @swagger
- * /dicas/{id}:
+ * /api/dicas/{id}:
  *   put:
  *     summary: Atualiza uma dica pelo ID
  *     tags: [Dicas]
@@ -77,7 +77,7 @@ router.put('/:id', dicaController.atualizar);
 
 /**
  * @swagger
- * /dicas/{id}:
+ * /api/dicas/{id}:
  *   delete:
  *     summary: Remove uma dica pelo ID
  *     tags: [Dicas]
@@ -96,7 +96,7 @@ router.delete('/:id', dicaController.deletar);
 
 /**
  * @swagger
- * /dicas/aleatoria:
+ * /api/dicas/aleatoria:
  *   get:
  *     summary: Retorna uma dica aleatória
  *     tags: [Dicas]

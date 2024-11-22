@@ -23,6 +23,20 @@ const swaggerOptions = {
       version: '1.0.0',
       description: 'Documentação da API LIXO',
     },
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        BearerAuth: [],
+      },
+    ],
   },
   apis: ['./router/*.js'], // Caminho para os seus arquivos de rota
 };
