@@ -7,7 +7,7 @@ async function listar() {
         const leituras = await leiturasRepository.listar()
         return leituras
     } catch (err) {
-        throw { id: 500, msg: "Erro ao listar leituras!" }
+        throw { id: 500, msg: err }
     }
 }
 
