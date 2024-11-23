@@ -1,5 +1,5 @@
-
 const express = require('express');
+const cors = require('cors');
 const pontoColetaRouter = require('./router/pontoColeta_router');
 const dicaRouter = require('./router/dica_router');
 const usuarioRouter = require('./router/usuario_router');
@@ -13,6 +13,8 @@ const leiturasRouter = require('./router/leituras_router')
 const app = express();
 const PORT = 3000;
 
+// Middleware para CORS
+app.use(cors()); // Permite todas as origens por padrão
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -49,7 +51,7 @@ const swaggerDocs = swaggerJsdoc(swaggerOptions);
 // Rota para a documentação Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-//API para testar se a URL está no ar (http://localhost:3000)
+// API para testar se a URL está no ar (http://localhost:3000)
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
@@ -64,8 +66,7 @@ app.use('/api/pontos-coleta', pontoColetaRouter);
 app.use('/api/dicas', dicaRouter);
 app.use('/api/usuarios', usuarioRouter);
 app.use('/api/metas', metaRouter);
-app.use('/api/leituras', leiturasRouter)
-
+app.use('/api/leituras', leiturasRouter);
 
 app.listen(PORT, () => {
   console.log(`Servidor executando na porta: ${PORT}`);
