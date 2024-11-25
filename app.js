@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
 app.post('/api/login', loginController.realizarLogin);
 
 // Rota para autenticação: essa rota precisa de autenticação
-app.use(authMiddleware.verificarAcesso);
+//app.use(authMiddleware.verificarAcesso);
 
 // Rotas da API
 app.use('/api/pontos-coleta', pontoColetaRouter);
